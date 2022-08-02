@@ -1,0 +1,46 @@
+{
+    "workouts": [
+        {
+            "id": 1,
+            "name": "Tomy b",
+            "mode": "For Time",
+            "equipment": [
+                "Barbell",
+                "rope"
+            ],
+            "exercises": [
+                "21 pushups",
+                "21 pullups",
+                "21 squats"
+            ],
+            "cratedAt": "2020-01-01T00:00:00.000Z",
+            "updatedAt": "2020-01-01T00:00:00.000Z",
+            "trainerTips": [
+                "split the 21 pushups into 3 sets of 10",
+                "split the 21 pullups into 3 sets of 10",
+                "split the 21 squats into 3 sets of 10"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Tomy b",
+            "mode": "For Time",
+            "equipment": [
+                "Barbell",
+                "rope"
+            ],
+            "exercises": [
+                "21 pushups",
+                "21 pullups",
+                "21 squats"
+            ],
+            "cratedAt": "2020-01-01T00:00:00.000Z",
+            "updatedAt": "2020-01-01T00:00:00.000Z",
+            "trainerTips": [
+                "split the 21 pushups into 3 sets of 10",
+                "split the 21 pullups into 3 sets of 10",
+                "split the 21 squats into 3 sets of 10"
+            ]
+        }
+    ]
+}

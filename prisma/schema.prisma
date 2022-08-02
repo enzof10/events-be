@@ -1,0 +1,38 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:ideaas@localhost:3306/todolist"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  password String?
+  task Task[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Task {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  user      User    @relation(fields: [user_id], references: [id])
+  user_id   Int
+  type  Type[]    
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Type {
+  id        Int     @id @default(autoincrement())
+  name      String
+  task      Task    @relation(fields: [task_id], references: [id])      
+  task_id   Int
+  color     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+
