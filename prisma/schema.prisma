@@ -3,6 +3,10 @@ datasource db {
   url      = "mysql://root:ideaas@localhost:3306/todolist"
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
