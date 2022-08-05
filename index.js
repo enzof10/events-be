@@ -13,8 +13,13 @@ app.listen(PORT, () => {
 
 const bodyParser = require('body-parser')
 
+
 app.use(express.json()) // for parsing application/json
 app.use("/api/v1/wotkouts", workoutsRoute);
 app.use("/api/v1/tasks", tasksRoute);
 app.use("/api/v1/users", usersRoute);
 
+app.use((error ,req, res, next) => {
+  console.log(error);
+  res.status(500).json(error.message);
+});

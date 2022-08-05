@@ -1,4 +1,3 @@
-const { PrismaClient } = require("@prisma/client");
 const taskServices = require("../services/taskServices");
 
 const getAllTasks = (req, res) => {
@@ -25,40 +24,37 @@ const getOneTask = (req, res) => {
 };
 
 const createTask = (req, res) => {
-  const prisma = new PrismaClient();
-  const { title, content, userId } = req.body;
-  prisma.task
-    .create({
-      data: {
-        title,
-        content,
-        user: {
-          connect: {
-            id: userId,
-          },
-        },
-      },
-    })
+  taskServices
+    .createTask(req.body)
     .then((task) => {
-      console.log("task: ", task);
-      res.send(task);
+      res.json(task);
     })
     .catch((err) => {
-      console.log("err: ", err);
-      // envia um erro de status 500
-      res.status(500).send({ error: err });
+      res.json(err);
     });
 };
 
-const updateTask = (req, res) => {
-  const idTask = req.params.id;
-  const task = req.body;
-  res.send(`update a task with id ${idTask} and ${task}`);
+const updateTask = (req, res, next) => {
+  const idTask =  req.params.id;
+  const newTask = req.body;
+  taskServices
+    .updateTask(idTask, newTask)
+    .then((task) => {
+      res.json(task);
+    })
+    .catch(next);
 };
 
 const deleteTask = (req, res) => {
   const idTask = req.params.id;
-  res.send(`delete a task with id ${idTask}`);
+  taskServices
+    .deleteTask(idTask)
+    .then((task) => {
+      res.json(task);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 module.exports = {
