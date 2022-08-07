@@ -60,12 +60,12 @@
     "method": "POST",
     "sortNum": 60000,
     "created": "2022-08-03T01:48:56.451Z",
-    "modified": "2022-08-03T01:50:15.071Z",
+    "modified": "2022-08-05T23:39:20.362Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\":\"enzo frias\",\n  \"email\":\"un email unico\",\n  \"password\": \"1234\"\n}",
+      "raw": "{\n  \"name\":\"enzo frias\",\n  \"email\":\"un email unissco\",\n  \"password\": \"1234\"\n}",
       "form": []
     },
     "tests": []
@@ -94,6 +94,25 @@
     "modified": "2022-08-03T02:22:06.673Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "357a5661-9873-480c-95c7-a5a8133da825",
+    "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
+    "containerId": "6da4c5b2-c684-4301-90df-6eb20089f40d",
+    "name": "login",
+    "url": "http://localhost:3000/api/v1/signin",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2022-08-05T23:39:52.037Z",
+    "modified": "2022-08-07T23:41:27.042Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n   \"email\":\"un email unissco\",\n  \"password\": \"1234\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]
