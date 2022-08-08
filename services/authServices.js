@@ -59,8 +59,36 @@ const changepassword = async (email, newPassword, oldPassword) => {
   return user;
 };
 
+const resetpassword = async (newPassword, token) => {
+  const prisma = new PrismaClient();
+  try {
+    let [user] = await prisma.user.findMany({
+      where: {
+        resetPasswordToken: token,
+      },
+    });
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    user = await prisma.user.update({
+      where: {
+        resetPasswordToken: token,
+      },
+      data: {
+        password: hashedPassword,
+        resetPasswordToken: null,
+      },
+    });
+
+    return user;
+  } catch (error) {
+    console.log('error: ', error);
+    return false;
+  }
+};
+
 module.exports = {
   signin,
   signup,
   changepassword,
+  resetpassword,
 };

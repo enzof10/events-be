@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const loginServices = require("../services/authServices");
+const userServices = require("../services/userServices");
 
 const signin = async (req, res) => {
   try {
@@ -96,7 +97,11 @@ const changepassword = async (req, res) => {
       });
     }
 
-    const newUser = await loginServices.changepassword(email, newPassword, oldPassword);
+    const newUser = await loginServices.changepassword(
+      email,
+      newPassword,
+      oldPassword
+    );
 
     if (!newUser) {
       return res.status(400).send({
@@ -116,15 +121,103 @@ const changepassword = async (req, res) => {
       },
       token,
     });
-
   } catch (error) {
     res.status(500).send(error);
   }
 };
+
+const forgotpassword = async (req, res) => {
+  const { body } = req;
+  const { email } = body;
+  if (!email) {
+    return res.status(400).send({
+      message: "Email is required",
+    });
+  }
+
+  const message = "Password reset link sent to your email";
+
+  try {
+
+    const user = await userServices.getOneUser(email);
+    if (!user) {
+      return res.status(400).send({
+        message,
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, username: user.name },
+      process.env.SECRET,
+      {
+        expiresIn: "10m",
+      }
+    );
+
+    const url = `http://localhost:3000/resetpassword/${token}`;
+
+    // TODO: send email with url
+
+    res.status(200).send({
+      message,
+      url,
+    });
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+const resetpassword = async (req, res) => {
+  const { body } = req;
+  const token = req.params.token;
+  const { password } = body;
+
+  if (!password || !token) {
+    return res.status(400).send({
+      message: "Password and token are required",
+    });
+  }
+
+  const jwtPayload = jwt.verify(token, process.env.SECRET);
+  if (!jwtPayload) {
+    return res.status(400).send({
+      message: "Invalid token",
+    });
+  }
+
+  const userId = jwtPayload.id;
+  const newUser = await loginServices.resetpassword(userId, password);
+
+  if (!newUser) {
+    return res.status(400).send({
+      message: "User not found",
+    });
+  }
+
+  const newToken = jwt.sign({ id: newUser.id }, process.env.SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.status(200).send({
+    user: {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+    },
+    newToken,
+  });
+}
+
+
+
+
 
 
 module.exports = {
   signin,
   signup,
   changepassword,
+  forgotpassword,
+  resetpassword,
 };

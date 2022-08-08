@@ -12,6 +12,7 @@ model User {
   email String  @unique
   name  String?
   password String?
+  resetPasswordToken String?
   task Task[]
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
