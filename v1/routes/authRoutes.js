@@ -5,44 +5,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
-const loginController = require("../../controllers/loginController");
+const authController = require("../../controllers/authController");
 
 router
-  .post("/",loginController.login)
-  .post("/signup", async (req, res) => {
-    const { body } = req;
-    const prisma = new PrismaClient();
-    const user = await prisma.user.findOne({
-      where: {
-        email: body.email,
-      },
-    });
-    if (user) {
-      return res.status(400).send({
-        message: "User already exists",
-      });
-    }
-    const hashedPassword = bcrypt.hashSync(body.password, 10);
-    const newUser = await prisma.user.create({
-      data: {
-        name: body.name,
-        email: body.email,
-        password: hashedPassword,
-      },
-    });
-
-    const token = jwt.sign({ id: newUser.id }, process.env.SECRET, {
-      expiresIn: "1h",
-    });
-    res.status(200).send({
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-      },
-      token,
-    });
-  })
+  .post("/signin",authController.signin)
+  .post("/signup",authController.signup)
+  .post("/changepassword", authController.changepassword)
   .post("/signin", async (req, res) => {
     const { body } = req;
     const prisma = new PrismaClient();

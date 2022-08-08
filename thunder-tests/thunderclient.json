@@ -8,8 +8,13 @@
     "method": "GET",
     "sortNum": 40000,
     "created": "2022-08-03T01:47:12.098Z",
-    "modified": "2022-08-03T01:47:58.306Z",
-    "headers": [],
+    "modified": "2022-08-08T01:54:46.931Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImVuem8gZnJpYXMiLCJpYXQiOjE2NTk5MjM2NjgsImV4cCI6MTY1OTkyNzI2OH0.d8OgxhZtVMmTp6jKpsUZrq9WdnKnzfnASNKEAqWtOos"
+      }
+    ],
     "params": [],
     "tests": []
   },
@@ -111,6 +116,30 @@
     "body": {
       "type": "json",
       "raw": "{\n   \"email\":\"un email unissco\",\n  \"password\": \"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "518a3bac-270a-407a-a4fb-c4d0598db430",
+    "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
+    "containerId": "6da4c5b2-c684-4301-90df-6eb20089f40d",
+    "name": "change password",
+    "url": "http://localhost:3000/api/v1/changepassword",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2022-08-08T01:56:44.582Z",
+    "modified": "2022-08-08T02:04:46.930Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImVuem8gZnJpYXMiLCJpYXQiOjE2NTk5MjM2NjgsImV4cCI6MTY1OTkyNzI2OH0.d8OgxhZtVMmTp6jKpsUZrq9WdnKnzfnASNKEAqWtOos"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\":\"un email unissco\",\n  \"oldPassword\": \"12345\",\n  \"newPassword\": \"1234\"\n}",
       "form": []
     },
     "tests": []
