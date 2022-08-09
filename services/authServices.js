@@ -12,13 +12,14 @@ const signin = async (email) => {
   return user;
 };
 
-const signup = async (email, password, name) => {
+const signup = async (name, email, password) => {
   const prisma = new PrismaClient();
-  let user = await prisma.user.findOne({
+  let [user] = await prisma.user.findMany({
     where: {
       email: email,
     },
   });
+
   if (user) {
     return false;
   }
@@ -30,6 +31,7 @@ const signup = async (email, password, name) => {
       password: hashedPassword,
     },
   });
+  
   return user;
 };
 

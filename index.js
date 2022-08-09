@@ -13,6 +13,17 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+  // fix Cross-Origin Request Blocked issue
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "*");
+    if (req.method === "OPTIONS") {
+       return res.status(200).end();
+    }
+    next();
+});
+
 
 app.use(express.json()) // for parsing application/json
 app.use("/api/v1/", authRoutes);

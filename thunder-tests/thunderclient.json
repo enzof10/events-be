@@ -80,12 +80,19 @@
     "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
     "containerId": "9b018c5d-3cb7-433a-93b2-ee4ba6f0f1f5",
     "name": "get all users",
-    "url": "",
+    "url": "http://localhost:3000/api/v1/users",
     "method": "GET",
     "sortNum": 70000,
     "created": "2022-08-03T01:50:37.290Z",
-    "modified": "2022-08-03T01:50:37.291Z",
-    "headers": []
+    "modified": "2022-08-08T02:52:07.924Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImVuem8gZnJpYXMiLCJpYXQiOjE2NTk5MjcxMTIsImV4cCI6MTY1OTkzMDcxMn0.NtV3lQRrAJwNJhB4tt7tv60rvqQcZN5ZYDFTBZW3CeM"
+      }
+    ],
+    "params": [],
+    "tests": []
   },
   {
     "_id": "c5be17d9-a243-48cd-aca6-c8267c72619d",
@@ -140,6 +147,25 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"email\":\"un email unissco\",\n  \"oldPassword\": \"12345\",\n  \"newPassword\": \"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a8f0bf91-b1dd-4d78-a6da-8e079f51d74f",
+    "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
+    "containerId": "6da4c5b2-c684-4301-90df-6eb20089f40d",
+    "name": "forgot password",
+    "url": "http://localhost:3000/api/v1/forgotpassword",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2022-08-08T02:50:05.304Z",
+    "modified": "2022-08-08T02:52:47.071Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"enzo_17_05@hotmail.com\"\n}",
       "form": []
     },
     "tests": []

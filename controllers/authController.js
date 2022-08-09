@@ -50,22 +50,22 @@ const signin = async (req, res) => {
 const signup = async (req, res) => {
   try {
     const { body } = req;
+    console.log("body: ", body);
     const { email, password, name } = body;
     if (!email || !password || !name) {
-      return res.status(400).send({
+      return res.status(400).json({
         message: "Email and password are required",
       });
     }
 
-    const hashedPassword = await bcrypt.hash(body.password, 10);
-    const newUser = await loginServices.signup({
-      name: body.name,
-      email: body.email,
-      password: hashedPassword,
-    });
+    const newUser = await loginServices.signup(
+      body.name,
+      body.email,
+      body.password
+    );
 
     if (!newUser) {
-      return res.status(400).send({
+      return res.status(400).json({
         message: "User already exists",
       });
     }
@@ -73,8 +73,9 @@ const signup = async (req, res) => {
     const token = jwt.sign({ id: newUser.id }, process.env.SECRET, {
       expiresIn: "1h",
     });
+    console.log('newUser: ', newUser);
 
-    res.status(200).send({
+    res.status(200).json({
       user: {
         id: newUser.id,
         name: newUser.name,
@@ -83,7 +84,8 @@ const signup = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).send(error);
+    console.log("error: ", error);
+    res.status(500).send(error.toString());
   }
 };
 
@@ -138,7 +140,6 @@ const forgotpassword = async (req, res) => {
   const message = "Password reset link sent to your email";
 
   try {
-
     const user = await userServices.getOneUser(email);
     if (!user) {
       return res.status(400).send({
@@ -162,9 +163,8 @@ const forgotpassword = async (req, res) => {
       message,
       url,
     });
-
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).send(error.toString());
   }
 };
 
@@ -207,12 +207,7 @@ const resetpassword = async (req, res) => {
     },
     newToken,
   });
-}
-
-
-
-
-
+};
 
 module.exports = {
   signin,
