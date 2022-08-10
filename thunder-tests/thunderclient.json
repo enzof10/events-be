@@ -179,12 +179,12 @@
     "method": "POST",
     "sortNum": 120000,
     "created": "2022-08-10T00:06:08.151Z",
-    "modified": "2022-08-10T00:11:41.493Z",
+    "modified": "2022-08-10T00:17:14.658Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"primer board\"\n  ,\"userId\": 1\n}",
+      "raw": "{\n  \"name\": \"segundo board\"\n}",
       "form": []
     },
     "auth": {

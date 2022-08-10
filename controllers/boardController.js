@@ -24,9 +24,9 @@ const getOneBoard = (req, res) => {
 };
 
 const createBoard = (req, res) => {
-    console.log('req: ', req);
+  const userId = req.user.id;
   boardServices
-    .createBoard(req.body)
+    .createBoard(req.body, userId)
     .then((board) => {
       res.json(board);
     })
