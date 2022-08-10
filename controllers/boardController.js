@@ -24,6 +24,7 @@ const getOneBoard = (req, res) => {
 };
 
 const createBoard = (req, res) => {
+    console.log('req: ', req);
   boardServices
     .createBoard(req.body)
     .then((board) => {

@@ -169,5 +169,28 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "6c72ff7c-f35b-4c1e-9fba-ea66e4e63b7f",
+    "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
+    "containerId": "ec9a1013-2471-4ef8-ab46-2667e2537a7b",
+    "name": "create board",
+    "url": "http://localhost:3000/api/v1/boards",
+    "method": "POST",
+    "sortNum": 120000,
+    "created": "2022-08-10T00:06:08.151Z",
+    "modified": "2022-08-10T00:11:41.493Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"primer board\"\n  ,\"userId\": 1\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJlbnpvIGZyaWFzIGJvcmRhIiwiaWF0IjoxNjYwMDkwMjc5LCJleHAiOjE2NjAwOTM4Nzl9.lp2lhn2I7o6y97MWw327G16NlqNHdstNjYw3eqql38k"
+    },
+    "tests": []
   }
 ]

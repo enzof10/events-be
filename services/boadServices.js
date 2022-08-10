@@ -15,6 +15,7 @@ const getOneBoard = (idBoard) => {
 };
 
 const createBoard = (task) => {
+    console.log('task: ', task);
   const prisma = new PrismaClient();
   const { name, userId } = task;
   return prisma.board.create({

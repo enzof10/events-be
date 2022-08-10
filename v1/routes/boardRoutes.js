@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const workoutController = require("../../controllers/workoutController");
+const boardController = require("../../controllers/boardController");
 
 router
-  .get("/", workoutController.getAllWorkouts)
-  .get("/:id", workoutController.getOneWorkout)
-  .post("/", workoutController.createWorkout)
-  .put("/:id", workoutController.updateWorkout)
-  .delete("/:id", workoutController.deleteWorkout);
+  .get("/", boardController.getAllBoards)
+
+  .get("/:id", boardController.getOneBoard)
+
+  .post("/", boardController.createBoard)
+
+  .put("/:id", boardController.updateBoard)
+
+  .delete("/:id", boardController.deleteBoard);
 
 module.exports = router;
