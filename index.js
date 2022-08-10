@@ -3,6 +3,7 @@ const workoutsRoute = require("./v1/routes/workoutRoute");
 const tasksRoute = require("./v1/routes/taskRoutes");
 const usersRoute = require("./v1/routes/userRoutes");
 const authRoutes = require("./v1/routes/authRoutes");
+const boardRoutes = require("./v1/routes/boardRoutes");
 const authenticateJWT = require("./middlewares/authJWT");
 
 
@@ -27,7 +28,9 @@ app.listen(PORT, () => {
 
 app.use(express.json()) // for parsing application/json
 app.use("/api/v1/", authRoutes);
+// boards
 app.use("/api/v1/wotkouts",authenticateJWT, workoutsRoute);
+app.use("/api/v1/boards", authenticateJWT, boardRoutes );
 app.use("/api/v1/tasks", authenticateJWT , tasksRoute);
 app.use("/api/v1/users",authenticateJWT , usersRoute);
 
