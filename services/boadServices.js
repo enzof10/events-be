@@ -2,7 +2,19 @@ const { PrismaClient } = require("@prisma/client");
 
 const getAllBoards = () => {
   const prisma = new PrismaClient();
-  return prisma.board.findMany();
+  return prisma.board.findMany({
+    select: {
+      id: true,
+      name: true,
+      tasks: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+        },
+      },
+    },
+  });
 };
 
 const getOneBoard = (idBoard) => {

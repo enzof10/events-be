@@ -27,7 +27,7 @@ const createTask = (req, res) => {
   taskServices
     .createTask(req.body)
     .then((task) => {
-      res.json(task);
+      res.status(201).json({ data: task });
     })
     .catch((err) => {
       res.json(err);
@@ -35,7 +35,7 @@ const createTask = (req, res) => {
 };
 
 const updateTask = (req, res, next) => {
-  const idTask =  req.params.id;
+  const idTask = req.params.id;
   const newTask = req.body;
   taskServices
     .updateTask(idTask, newTask)

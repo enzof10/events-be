@@ -4,10 +4,11 @@ const getAllBoards = (req, res) => {
   boardServices
     .getAllBoards()
     .then((boards) => {
-      res.json(boards);
+      res.status(200).json({ data: boards });
     })
     .catch((err) => {
-      res.json(err);
+      console.log("err: ", err);
+      res.status(500).json({ error: true, message: err.toString() });
     });
 };
 
@@ -28,10 +29,11 @@ const createBoard = (req, res) => {
   boardServices
     .createBoard(req.body, userId)
     .then((board) => {
-      res.json(board);
+      res.status(201).json({ data: board });
     })
     .catch((err) => {
-      res.json(err);
+      console.log("err: ", err);
+      res.status(500).json({ error: err.toString() });
     });
 };
 
