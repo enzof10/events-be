@@ -49,14 +49,17 @@ const updateBoard = (req, res, next) => {
 };
 
 const deleteBoard = (req, res) => {
-  const idTask = req.params.id;
+  const idTask = Number(req.params.id);
+  if (!idTask || typeof idTask !== "number") {
+    return res.status(400).json({ error: "idTask is required" });
+  }
   boardServices
     .deleteBoard(idTask)
     .then((task) => {
       res.json(task);
     })
     .catch((err) => {
-      res.json(err);
+      res.status(500).json({ error: err.toString() });
     });
 };
 

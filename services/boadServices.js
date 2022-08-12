@@ -14,7 +14,7 @@ const getAllBoards = () => {
         },
       },
     },
-  });
+  })
 };
 
 const getOneBoard = (idBoard) => {
@@ -55,8 +55,22 @@ const updateBoard = (idBoard, newBoard) => {
   });
 };
 
-const deleteBoard = (idBoard) => {
+const deleteBoard = async (idBoard) => {
+  console.log('idBoard: ', idBoard);
   const prisma = new PrismaClient();
+
+  prisma.board.findMany({
+    where: {
+      id: idBoard,
+    },
+  })
+  .then(board => {  
+  console.log('board: ', board);
+  })
+  .catch(err => {
+    console.log('err: ', err);
+  }
+  )
   return prisma.board.delete({
     where: {
       id: idBoard,
