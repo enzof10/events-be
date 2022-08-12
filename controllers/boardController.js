@@ -38,7 +38,10 @@ const createBoard = (req, res) => {
 };
 
 const updateBoard = (req, res, next) => {
-  const idTask = req.params.id;
+  const idTask = Number(req.params.id);
+  if (!idTask || typeof idTask !== "number") {
+    return res.status(400).json({ error: true, message: "idTask is required" });
+  }
   const newTask = req.body;
   boardServices
     .updateBoard(idTask, newTask)
