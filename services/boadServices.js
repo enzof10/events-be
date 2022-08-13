@@ -10,7 +10,14 @@ const getAllBoards = () => {
         select: {
           id: true,
           title: true,
-          content: true,
+          description: true,
+          type: {
+            select: {
+              id: true,
+              name: true,
+              color: true,
+            },
+          }
         },
       },
     },

@@ -14,16 +14,17 @@ const getOneTask = (idTask) => {
   });
 };
 
-const createTask = (task) => {
+const createTask = (task, userId) => {
   const prisma = new PrismaClient();
-  const { title, content, userId } = task;
+  const { title, boardId } = task;
+  console.log("task: ", task);
   return prisma.task.create({
     data: {
       title,
-      content,
-      user: {
+      description: "",
+      board: {
         connect: {
-          id: userId,
+          id: boardId,
         },
       },
     },
@@ -32,14 +33,46 @@ const createTask = (task) => {
 
 const updateTask = (idTask, newTask) => {
   const prisma = new PrismaClient();
-  const { title, content } = newTask;
+  let { title, description, type, date } = newTask;
+  console.log('date: ', date);
+  console.log('types: ', type);
+  console.log('description: ', description);
+  console.log('title: ', title);
+
+  date = date ? date : "null";
+  
+
+  // recorre los types y los inserta
+
+  for (item of type) {
+    console.log(item);
+    prisma.item.upsert({
+      where: {
+        id: item.id,
+      },
+      create: {
+        task_id: idTask,
+        name: item.name,
+        color: item.color,
+      },
+      update: {
+        task_id: idTask,
+        name: item.name,
+        color: item.color,
+      },
+    });
+  }
+
   return prisma.task.update({
     where: {
       id: idTask,
     },
     data: {
       title,
-      content,
+      description,
+      type: {
+        connect: type,
+      },
     },
   });
 };

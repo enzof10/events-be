@@ -51,7 +51,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"title\": \"titulo editado\",\n  \"content\" : \"contenido editado\"\n}",
+      "raw": "{\n  \"title\": \"titulo editado\",\n  \"description\" : \"contenido editado\"\n}",
       "form": []
     },
     "tests": []

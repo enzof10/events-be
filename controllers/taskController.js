@@ -24,18 +24,23 @@ const getOneTask = (req, res) => {
 };
 
 const createTask = (req, res) => {
+  const userId = req.user.id;
   taskServices
-    .createTask(req.body)
+    .createTask(req.body, userId)
     .then((task) => {
       res.status(201).json({ data: task });
     })
     .catch((err) => {
-      res.json(err);
+      console.log('err: ', err);
+      res.status(500).json({ error: err.toString() });
     });
 };
 
 const updateTask = (req, res, next) => {
-  const idTask = req.params.id;
+  const idTask = Number(req.params.id);
+  if(!idTask) {
+    return res.status(400).json({ error: "Missing id" });
+  }
   const newTask = req.body;
   taskServices
     .updateTask(idTask, newTask)
