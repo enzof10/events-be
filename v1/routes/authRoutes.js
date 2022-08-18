@@ -18,4 +18,6 @@ router
 
   .post("/resetpassword/:token", authController.resetpassword)
 
+  .post("/verifytoken", authController.verifytoken)
+
 module.exports = router;

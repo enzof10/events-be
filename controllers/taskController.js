@@ -47,7 +47,10 @@ const updateTask = (req, res, next) => {
     .then((task) => {
       res.json(task);
     })
-    .catch(next);
+    .catch((err) => {
+      console.log('err: ', err);
+      res.status(500).json({ error: err.toString() });
+    })
 };
 
 const deleteTask = (req, res) => {

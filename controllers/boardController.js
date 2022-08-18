@@ -4,6 +4,12 @@ const getAllBoards = (req, res) => {
   boardServices
     .getAllBoards()
     .then((boards) => {
+      boards.forEach((board) => {
+        board.tasks.forEach((task) => {
+          task.types = task.types.map((type) => type.type);
+        });
+      });        
+
       res.status(200).json({ data: boards });
     })
     .catch((err) => {

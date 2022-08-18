@@ -31,37 +31,45 @@ const createTask = (task, userId) => {
   });
 };
 
-const updateTask = (idTask, newTask) => {
+const updateTask = async (idTask, newTask) => {
   const prisma = new PrismaClient();
-  let { title, description, type, date } = newTask;
-  console.log('date: ', date);
-  console.log('types: ', type);
-  console.log('description: ', description);
-  console.log('title: ', title);
+  let { title, description, types, date } = newTask;
 
-  date = date ? date : "null";
-  
-
-  // recorre los types y los inserta
-
-  for (item of type) {
-    console.log(item);
-    prisma.item.upsert({
-      where: {
-        id: item.id,
-      },
-      create: {
-        task_id: idTask,
-        name: item.name,
-        color: item.color,
-      },
-      update: {
-        task_id: idTask,
-        name: item.name,
-        color: item.color,
-      },
-    });
-  }
+  console.time("updateTask");
+  types.map(async (type) => {
+    if (!type.id) {
+      const typeInserted = await prisma.type.create({
+        data: {
+          name: type.name,
+          color: type.color,
+          taks: {
+            create: [
+              {
+                assignedBy: "null",
+                assignedAt: new Date(),
+                task: {
+                  connect: {
+                    id: idTask,
+                  },
+                },
+              },
+            ],
+          },
+        },
+      });
+    } else {
+      const typeUpdated = await prisma.type.update({
+        where: {
+          id: type.id,
+        },
+        data: {
+          name: type.name,
+          color: type.color,
+        },
+      });
+    }
+  });
+  console.timeEnd("updateTask");
 
   return prisma.task.update({
     where: {
@@ -70,9 +78,6 @@ const updateTask = (idTask, newTask) => {
     data: {
       title,
       description,
-      type: {
-        connect: type,
-      },
     },
   });
 };

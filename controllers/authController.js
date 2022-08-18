@@ -27,7 +27,7 @@ const signin = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, name: user.name },
+      { id: user.id, name: user.name, email: user.email },
       process.env.SECRET,
       {
         expiresIn: "1h",
@@ -73,7 +73,7 @@ const signup = async (req, res) => {
     const token = jwt.sign({ id: newUser.id }, process.env.SECRET, {
       expiresIn: "1h",
     });
-    console.log('newUser: ', newUser);
+    console.log("newUser: ", newUser);
 
     res.status(200).json({
       user: {
@@ -209,10 +209,52 @@ const resetpassword = async (req, res) => {
   });
 };
 
+const verifytoken = async (req, res) => {
+  const token = req.body.token;
+  if (!token) {
+    return res.status(401).send({
+      message: "Token is required",
+    });
+  }
+
+  const jwtPayload = jwt.verify(token, process.env.SECRET);
+  if (!jwtPayload) {
+    return res.status(401).send({
+      message: "Invalid token",
+    });
+  }
+
+  const email = jwtPayload.email;
+  const user = await loginServices.signin(email);
+  if (!user) {
+    return res.status(401).send({
+      message: "User not found",
+    });
+  }
+
+  const newToken = jwt.sign(
+    { id: user.id, name: user.name, email: user.email },
+    process.env.SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  res.status(200).send({
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
+    token: newToken,
+  });
+};
+
 module.exports = {
   signin,
   signup,
   changepassword,
   forgotpassword,
   resetpassword,
+  verifytoken,
 };

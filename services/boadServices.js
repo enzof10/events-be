@@ -2,26 +2,27 @@ const { PrismaClient } = require("@prisma/client");
 
 const getAllBoards = () => {
   const prisma = new PrismaClient();
+
   return prisma.board.findMany({
     select: {
       id: true,
       name: true,
       tasks: {
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          type: {
-            select: {
-              id: true,
-              name: true,
-              color: true,
+        include: {
+          types: {
+            select:{
+              type: {
+                select: {
+                  id: true,
+                  name: true,
+                  color: true,},
+              },
             },
-          }
+          },
         },
       },
     },
-  })
+  });
 };
 
 const getOneBoard = (idBoard) => {
@@ -63,21 +64,21 @@ const updateBoard = (idBoard, newBoard) => {
 };
 
 const deleteBoard = async (idBoard) => {
-  console.log('idBoard: ', idBoard);
+  console.log("idBoard: ", idBoard);
   const prisma = new PrismaClient();
 
-  prisma.board.findMany({
-    where: {
-      id: idBoard,
-    },
-  })
-  .then(board => {  
-  console.log('board: ', board);
-  })
-  .catch(err => {
-    console.log('err: ', err);
-  }
-  )
+  prisma.board
+    .findMany({
+      where: {
+        id: idBoard,
+      },
+    })
+    .then((board) => {
+      console.log("board: ", board);
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+    });
   return prisma.board.delete({
     where: {
       id: idBoard,

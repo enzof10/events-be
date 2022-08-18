@@ -29,26 +29,25 @@ model Board {
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   description String?
-  published   Boolean   @default(false)
-  type        Type[]
-  board       Board     @relation(fields: [board_id], references: [id])
+  published   Boolean      @default(false)
+  board       Board        @relation(fields: [board_id], references: [id])
   board_id    Int
   subtasks    Subtask[]
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now())
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @default(now())
+  types       TypeOnTask[]
 }
 
 model Type {
-  id         Int      @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   name       String
-  task       Task     @relation(fields: [task_id], references: [id])
-  task_id    Int
   color      String?
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+  taks       TypeOnTask[]
 }
 
 model Subtask {
@@ -59,4 +58,15 @@ model Subtask {
   task_id    Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+}
+
+model TypeOnTask {
+  task       Task     @relation(fields: [task_id], references: [id])
+  task_id    Int
+  type       Type     @relation(fields: [type_id], references: [id])
+  type_id    Int
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([task_id, type_id])
 }
