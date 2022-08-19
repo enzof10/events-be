@@ -36,6 +36,7 @@ const updateTask = async (idTask, newTask) => {
   let { title, description, types, date } = newTask;
 
   console.time("updateTask");
+  let idsTypes = [];
   types.map(async (type) => {
     if (!type.id) {
       const typeInserted = await prisma.type.create({
@@ -58,6 +59,7 @@ const updateTask = async (idTask, newTask) => {
         },
       });
     } else {
+      idsTypes.push(type.id);
       const typeUpdated = await prisma.type.update({
         where: {
           id: type.id,
@@ -69,7 +71,15 @@ const updateTask = async (idTask, newTask) => {
       });
     }
   });
-  console.timeEnd("updateTask");
+
+  let typesDelete = await prisma.typeOnTask.deleteMany({
+    where: {
+      type_id: {
+        notIn: idsTypes,
+      },
+      task_id: idTask,
+    },
+  });
 
   return prisma.task.update({
     where: {
