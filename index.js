@@ -4,7 +4,6 @@ const tasksRoute = require("./v1/routes/taskRoutes");
 const usersRoute = require("./v1/routes/userRoutes");
 const authRoutes = require("./v1/routes/authRoutes");
 const boardRoutes = require("./v1/routes/boardRoutes");
-const typeRoutes = require("./v1/routes/typeRoutes");
 const authenticateJWT = require("./middlewares/authJWT");
 
 

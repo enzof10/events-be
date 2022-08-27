@@ -65,17 +65,10 @@ const signup = async (req, res) => {
       body.password
     );
 
-    const typeOnUser = await typesServices.addTypeToUser(newUser.id)
-    if(typeOnUser.error){
-      await userServices.deleteUser(newUser.id)
-      res.status(500).json({
-        message :"error crateting typeOnUser",
-        objectError : typeOnUser.objetError
-      })
-    }
+
 
     if (!newUser) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "User already exists",
       });
     }

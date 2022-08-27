@@ -17,8 +17,22 @@ const getTypesByUser = (userId) => {
     },
   });
 };
+const findTypesByDefault = async () => {
+  console.log("asas");
+  const typesDefaults = await prisma.type.findMany({
+    where: {
+      id: {
+        in: [1, 2, 3, 4, 5, 6, 7],
+      },
+    },
+  });
+
+  return typesDefaults;
+};
+
 
 
 module.exports = {
-    getTypesByUser
+    getTypesByUser,
+    findTypesByDefault
 }

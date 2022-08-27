@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const typeServices = require("../services/typeServices")
 const bcrypt = require("bcrypt");
 
 const signin = async (email) => {
@@ -19,16 +20,30 @@ const signup = async (name, email, password) => {
       email: email,
     },
   });
-
   if (user) {
     return false;
   }
+  const typesDefault = await  typeServices.findTypesByDefault();
+  let typeOnUserToCreate = []
+  for (let index = 0; index < 7; index++) {
+    typeOnUserToCreate.push({
+      type:{
+        create:{
+          color: typesDefault[index].color
+        }
+      }
+    });
+  }
+  
   const hashedPassword = bcrypt.hashSync(password, 10);
   user = await prisma.user.create({
     data: {
       name: name,
       email: email,
       password: hashedPassword,
+      types:{
+        create: typeOnUserToCreate
+      }
     },
   });
   
