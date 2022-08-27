@@ -1,12 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
+const { prisma } = require("../prisma/prismaStore");
 
 const getAllTasks = () => {
-  const prisma = new PrismaClient();
   return prisma.task.findMany();
 };
 
 const getOneTask = (idTask) => {
-  const prisma = new PrismaClient();
   return prisma.task.findMany({
     where: {
       id: idTask,
@@ -15,7 +13,6 @@ const getOneTask = (idTask) => {
 };
 
 const createTask = (task, userId) => {
-  const prisma = new PrismaClient();
   const { title, boardId } = task;
   console.log("task: ", task);
   return prisma.task.create({
@@ -32,10 +29,8 @@ const createTask = (task, userId) => {
 };
 
 const updateTask = async (idTask, newTask) => {
-  const prisma = new PrismaClient();
   let { title, description, types, date } = newTask;
 
-  console.time("updateTask");
   let idsTypes = [];
   types.map(async (type) => {
     if (!type.id) {
@@ -93,10 +88,20 @@ const updateTask = async (idTask, newTask) => {
 };
 
 const deleteTask = (idTask) => {
-  const prisma = new PrismaClient();
   return prisma.task.delete({
     where: {
       id: idTask,
+    },
+  });
+};
+
+const removeType = (idTask, idType) => {
+  return prisma.typeOnTask.deleteMany({
+    where: {
+      task_id: idTask,
+      AND: {
+        type_id: idType,
+      },
     },
   });
 };

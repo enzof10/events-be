@@ -12,6 +12,8 @@ router
 
   .put("/:id", taskController.updateTask)
 
-  .delete("/:id", taskController.deleteTask);
+  .delete("/:id", taskController.deleteTask)
+
+  .delete("/:id/types/:idType", taskController.removeType)
 
 module.exports = router;

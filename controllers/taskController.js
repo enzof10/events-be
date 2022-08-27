@@ -31,14 +31,14 @@ const createTask = (req, res) => {
       res.status(201).json({ data: task });
     })
     .catch((err) => {
-      console.log('err: ', err);
+      console.log("err: ", err);
       res.status(500).json({ error: err.toString() });
     });
 };
 
 const updateTask = (req, res, next) => {
   const idTask = Number(req.params.id);
-  if(!idTask) {
+  if (!idTask) {
     return res.status(400).json({ error: "Missing id" });
   }
   const newTask = req.body;
@@ -48,13 +48,13 @@ const updateTask = (req, res, next) => {
       res.json(task);
     })
     .catch((err) => {
-      console.log('err: ', err);
+      console.log("err: ", err);
       res.status(500).json({ error: err.toString() });
-    })
+    });
 };
 
 const deleteTask = (req, res) => {
-  const idTask = req.params.id;
+  const idTask = Number(req.params.id);
   taskServices
     .deleteTask(idTask)
     .then((task) => {
@@ -65,10 +65,33 @@ const deleteTask = (req, res) => {
     });
 };
 
+const removeType = (req, res) => {
+  const idTask = Number(req.params.id);
+  console.log('idTask: ', idTask);
+  const idType = Number(req.params.idType);
+  console.log('idType: ', idType);
+  if (!idTask || !idType) {
+    res.status(401).json({
+      message: "idTask and idType are required",
+    });
+  }
+  taskServices
+    .removeType(idTask, idType)
+    .then((type) => {
+      res.status(200).json({
+        message: "type removed",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+};
+
 module.exports = {
   getAllTasks,
   getOneTask,
   createTask,
   updateTask,
   deleteTask,
+  removeType,
 };
