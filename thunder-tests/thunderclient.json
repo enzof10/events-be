@@ -192,5 +192,24 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJlbnpvIGZyaWFzIGJvcmRhIiwiaWF0IjoxNjYwMDkwMjc5LCJleHAiOjE2NjAwOTM4Nzl9.lp2lhn2I7o6y97MWw327G16NlqNHdstNjYw3eqql38k"
     },
     "tests": []
+  },
+  {
+    "_id": "d46bab49-4b1f-4c52-884e-b4ef62f1398e",
+    "colId": "e79facfa-5f44-4050-a855-2fba43d97b80",
+    "containerId": "513c4738-b112-4f37-abe9-f5a980416862",
+    "name": "getTypesByUser",
+    "url": "http://localhost:3001/api/v1/users/8/types",
+    "method": "GET",
+    "sortNum": 130000,
+    "created": "2022-08-27T18:44:34.681Z",
+    "modified": "2022-08-27T18:54:53.342Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibmFtZSI6ImVuem8iLCJlbWFpbCI6ImVuem9fMTdfMDVAaG90bWFpbC5jb20iLCJpYXQiOjE2NjE2MjY0NjEsImV4cCI6MTY2MTYzMDA2MX0.5XYbapRAg6PmbFyLbeS8_Ntu6ix_L4XKFjPTmy1zO6g"
+      }
+    ],
+    "params": [],
+    "tests": []
   }
 ]

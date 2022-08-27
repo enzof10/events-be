@@ -64,9 +64,17 @@ CREATE TABLE `TypeOnTask` (
     `task_id` INTEGER NOT NULL,
     `type_id` INTEGER NOT NULL,
     `assignedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `assignedBy` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`task_id`, `type_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `typeOnUser` (
+    `user_id` INTEGER NOT NULL,
+    `type_id` INTEGER NOT NULL,
+    `createAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`user_id`, `type_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
@@ -83,3 +91,9 @@ ALTER TABLE `TypeOnTask` ADD CONSTRAINT `TypeOnTask_task_id_fkey` FOREIGN KEY (`
 
 -- AddForeignKey
 ALTER TABLE `TypeOnTask` ADD CONSTRAINT `TypeOnTask_type_id_fkey` FOREIGN KEY (`type_id`) REFERENCES `Type`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `typeOnUser` ADD CONSTRAINT `typeOnUser_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `typeOnUser` ADD CONSTRAINT `typeOnUser_type_id_fkey` FOREIGN KEY (`type_id`) REFERENCES `Type`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

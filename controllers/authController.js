@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const loginServices = require("../services/authServices");
 const userServices = require("../services/userServices");
+const typesServices = require("../services/typesServices")
 
 const signin = async (req, res) => {
   try {
@@ -64,8 +65,17 @@ const signup = async (req, res) => {
       body.password
     );
 
+    const typeOnUser = await typesServices.addTypeToUser(newUser.id)
+    if(typeOnUser.error){
+      await userServices.deleteUser(newUser.id)
+      res.status(500).json({
+        message :"error crateting typeOnUser",
+        objectError : typeOnUser.objetError
+      })
+    }
+
     if (!newUser) {
-      return res.status(400).json({
+      res.status(400).json({
         message: "User already exists",
       });
     }

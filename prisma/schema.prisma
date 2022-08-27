@@ -4,19 +4,20 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
 model User {
-  id                 Int      @id @default(autoincrement())
-  email              String   @unique
+  id                 Int          @id @default(autoincrement())
+  email              String       @unique
   name               String?
   password           String?
   resetPasswordToken String?
   board              Board[]
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  created_at         DateTime     @default(now())
+  updated_at         DateTime     @default(now())
+  types              typeOnUser[]
 }
 
 model Board {
@@ -49,6 +50,7 @@ model Type {
   created_at DateTime     @default(now())
   updated_at DateTime     @default(now())
   taks       TypeOnTask[]
+  users      typeOnUser[]
 }
 
 model Subtask {
@@ -67,7 +69,16 @@ model TypeOnTask {
   type       Type     @relation(fields: [type_id], references: [id])
   type_id    Int
   assignedAt DateTime @default(now())
-  assignedBy String
 
   @@id([task_id, type_id])
+}
+
+model typeOnUser {
+  user     User     @relation(fields: [user_id], references: [id])
+  user_id  Int
+  type     Type     @relation(fields: [type_id], references: [id])
+  type_id  Int
+  createAt DateTime @default(now())
+
+  @@id([user_id, type_id])
 }

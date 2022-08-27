@@ -1,8 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
-
+const { prisma } = require("./../prisma/prismaStore")
 const getAllBoards = () => {
-  const prisma = new PrismaClient();
-
   return prisma.board.findMany({
     select: {
       id: true,
@@ -35,7 +32,6 @@ const getOneBoard = (idBoard) => {
 };
 
 const createBoard = (task, userId) => {
-  const prisma = new PrismaClient();
   const { name } = task;
 
   return prisma.board.create({
@@ -51,7 +47,6 @@ const createBoard = (task, userId) => {
 };
 
 const updateBoard = (idBoard, newBoard) => {
-  const prisma = new PrismaClient();
   const { name } = newBoard;
   return prisma.board.update({
     where: {
@@ -65,8 +60,6 @@ const updateBoard = (idBoard, newBoard) => {
 
 const deleteBoard = async (idBoard) => {
   console.log("idBoard: ", idBoard);
-  const prisma = new PrismaClient();
-
   prisma.board
     .findMany({
       where: {
