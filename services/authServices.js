@@ -34,7 +34,7 @@ const signup = async (name, email, password) => {
       }
     });
   }
-  
+
   const hashedPassword = bcrypt.hashSync(password, 10);
   user = await prisma.user.create({
     data: {

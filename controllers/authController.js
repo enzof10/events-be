@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const loginServices = require("../services/authServices");
 const userServices = require("../services/userServices");
-const typesServices = require("../services/typesServices")
 
 const signin = async (req, res) => {
   try {

@@ -12,7 +12,8 @@ const getAllBoards = () => {
                 select: {
                   id: true,
                   name: true,
-                  color: true,},
+                  color: true,
+                },
               },
             },
           },
