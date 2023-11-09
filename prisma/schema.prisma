@@ -8,65 +8,34 @@ generator client {
 }
 
 model User {
-  id                 Int      @id @default(autoincrement())
-  email              String   @unique
+  id                 Int        @id @default(autoincrement())
+  email              String     @unique
   name               String?
   password           String?
   resetPasswordToken String?
-  board              Board[]
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  event              Event[]
+  response           Response[]
+  created_at         DateTime   @default(now())
+  updated_at         DateTime   @default(now())
 }
 
-model Board {
-  id         Int      @id @default(autoincrement())
-  name       String
-  user       User     @relation(fields: [user_id], references: [id])
-  user_id    Int
-  tasks      Task[]
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+model Event {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  init        DateTime
+  end         DateTime
+  user        User       @relation(fields: [user_id], references: [id])
+  user_id     Int
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @default(now())
+  Response    Response[]
+  responseId  Int?
 }
 
-model Task {
-  id          Int          @id @default(autoincrement())
-  title       String
-  description String?
-  published   Boolean      @default(false)
-  board       Board        @relation(fields: [board_id], references: [id])
-  board_id    Int
-  subtasks    Subtask[]
-  created_at  DateTime     @default(now())
-  updated_at  DateTime     @default(now())
-  types       TypeOnTask[]
-}
-
-model Type {
-  id         Int          @id @default(autoincrement())
-  name       String
-  color      String?
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
-  taks       TypeOnTask[]
-}
-
-model Subtask {
-  id         Int      @id @default(autoincrement())
-  text       String
-  completed  Boolean  @default(false)
-  task       Task     @relation(fields: [task_id], references: [id])
-  task_id    Int
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-}
-
-model TypeOnTask {
-  task       Task     @relation(fields: [task_id], references: [id])
-  task_id    Int
-  type       Type     @relation(fields: [type_id], references: [id])
-  type_id    Int
-  assignedAt DateTime @default(now())
-  assignedBy String
-
-  @@id([task_id, type_id])
+model Response {
+  id     Int     @id @default(autoincrement())
+  User   User[]
+  userId Int?
+  Event  Event[]
 }
